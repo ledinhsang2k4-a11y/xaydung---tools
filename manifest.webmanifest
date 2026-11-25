@@ -1,0 +1,14 @@
+{
+  "name": "Bộ công cụ xây dựng",
+  "short_name": "Xây dựng",
+  "description": "Công cụ tính nhanh cho công trường: khối lượng vật liệu, dự toán, checklist, nhật ký.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14243a",
+  "theme_color": "#14243a",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
