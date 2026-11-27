@@ -1,7 +1,7 @@
 {
-  "name": "Bộ công cụ xây dựng",
+  "name": "Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán",
   "short_name": "Xây dựng",
-  "description": "Công cụ tính nhanh cho công trường: khối lượng vật liệu, dự toán, checklist, nhật ký.",
+  "description": "Công cụ tính nhanh cho công trường: khối lượng vật liệu, dự toán, tra cứu, checklist.",
   "lang": "vi",
   "start_url": "./",
   "scope": "./",

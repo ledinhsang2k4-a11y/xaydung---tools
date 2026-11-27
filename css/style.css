@@ -1,4 +1,4 @@
-/* Bộ công cụ xây dựng — giao diện "bảng hiệu công trường" */
+/* Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán — giao diện "bảng hiệu công trường" */
 :root{
   --bg:#e4e8ec;
   --card:#f9fafb;
@@ -32,10 +32,10 @@ a{color:inherit}
 .wrap{max-width:1000px;margin:0 auto;padding:0 16px}
 
 /* Header */
-.site-head{background:var(--ink);color:#fff;position:sticky;top:0;z-index:20}
+.site-head{background:#0b4f9c;color:#fff;position:sticky;top:0;z-index:20}
 .site-head::before{content:"";display:block;height:7px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 12px,#14243a 12px 24px)}
-.site-head .wrap{display:flex;align-items:center;gap:12px;min-height:56px}
-.brand{font:700 20px/1 var(--display);text-decoration:none;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
+.site-head .wrap{display:flex;align-items:center;gap:12px;min-height:56px;padding-top:6px;padding-bottom:6px}
+.brand{font:700 20px/1.25 var(--display);text-decoration:none;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
 .brand i{display:inline-grid;place-items:center;width:30px;height:30px;background:var(--yellow);color:var(--yellow-ink);font-style:normal;border-radius:3px;font-size:17px}
 .site-head nav{margin-left:auto;display:flex;gap:6px}
 .site-head nav a,.site-head nav button{color:#fff;background:transparent;border:1.5px solid rgba(255,255,255,.35);border-radius:4px;padding:6px 10px;font:600 14px var(--body);text-decoration:none;cursor:pointer}
@@ -137,7 +137,7 @@ details.card li{margin:4px 0}
 
 .print-only{display:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-@media (max-width:520px){.site-head nav .hide-sm{display:none}.res.main b{font-size:28px}}
+@media (max-width:520px){.brand{font-size:15px}.brand i{flex:none}.site-head nav .hide-sm{display:none}.res.main b{font-size:28px}}
 
 /* In ấn / xuất PDF */
 @media print{

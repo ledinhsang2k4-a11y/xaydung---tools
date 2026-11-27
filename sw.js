@@ -1,5 +1,5 @@
 /* Service worker: lưu sẵn toàn bộ trang để dùng khi mất mạng. Đổi CACHE khi phát hành bản mới. */
-var CACHE = 'xdt-v2';
+var CACHE = 'xdt-v4';
 var ASSETS = [
   './', 'index.html', 'manifest.webmanifest', 'icons/icon.svg', 'css/style.css',
   'js/formulas.js', 'js/xlsx.js', 'js/core.js', 'js/app.js',

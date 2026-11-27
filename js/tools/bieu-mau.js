@@ -1,8 +1,8 @@
-/* Nhóm: Biểu mẫu và nhật ký — checklist nghiệm thu / an toàn, nhật ký công trình */
+/* Nhóm: Biểu mẫu — checklist nghiệm thu / an toàn */
 (function () {
   'use strict';
   var esc = CX.esc;
-  var G = 'Biểu mẫu & nhật ký';
+  var G = 'Biểu mẫu';
 
   /* ===== Checklist ===== */
   var TEMPLATES = [
@@ -145,86 +145,6 @@
         }
       });
       $('#c-new').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); el.querySelector('[data-act=addc]').click(); } });
-    }
-  });
-
-  /* ===== Nhật ký công trình ===== */
-  var WEATHER = ['Nắng', 'Nhiều mây', 'Mưa nhỏ', 'Mưa lớn', 'Gió mạnh'];
-  CX.register({
-    id: 'nhat-ky', name: 'Nhật ký công trình', group: G, icon: '✎',
-    desc: 'Ghi nhanh mỗi ngày: thời tiết, nhân công, công việc, vật tư, sự cố. Xuất Excel hoặc in.',
-    keywords: 'nhat ky cong trinh hang ngay thoi tiet nhan cong su co ghi chep',
-    mount: function (el, tool) {
-      var d = CX.store.get('diary', { project: '', entries: [] });
-      var editing = null;
-      function blank() { return { id: '', date: CX.today(), weather: WEATHER[0], workers: '', work: '', material: '', issue: '' }; }
-      var form = blank();
-
-      el.innerHTML =
-        '<section class="card no-print"><h2 id="n-title">Ghi nhật ký mới</h2><div class="grid">' +
-        '<label class="fld"><span>Ngày</span><input type="date" data-n="date"></label>' +
-        '<label class="fld"><span>Thời tiết</span><select data-n="weather">' + WEATHER.map(function (w) { return '<option>' + w + '</option>'; }).join('') + '</select></label>' +
-        '<label class="fld"><span>Số nhân công <em>(người)</em></span><input data-n="workers" inputmode="numeric"></label></div>' +
-        '<label class="fld" style="margin-top:12px"><span>Công việc đã làm</span><textarea data-n="work"></textarea></label>' +
-        '<label class="fld" style="margin-top:12px"><span>Vật tư vào, ra công trường</span><textarea data-n="material"></textarea></label>' +
-        '<label class="fld" style="margin-top:12px"><span>Khó khăn, sự cố, việc cần xử lý</span><textarea data-n="issue"></textarea></label>' +
-        '<div class="actions"><button class="btn primary" data-act="save">Lưu nhật ký</button><button class="btn" data-act="cancel" id="n-cancel" hidden>Hủy sửa</button></div></section>' +
-        '<section class="card"><h2>Các ngày đã ghi</h2><label class="fld no-print" style="max-width:420px;margin-bottom:12px"><span>Tên công trình (hiện trên bản in và file xuất)</span><input type="text" id="n-project"></label>' +
-        '<div id="n-list"></div>' +
-        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.xlsx)</button><button class="btn" data-act="print">In / lưu PDF</button></div></section>' +
-        '<section class="card no-print"><h2>Lưu ý</h2><ul class="note-list"><li>Nhật ký được lưu trong trình duyệt của thiết bị này. Đổi máy hoặc xóa dữ liệu duyệt web sẽ mất, hãy xuất file hoặc dùng nút "Sao lưu" ở trang chủ định kỳ.</li><li>Đây là sổ ghi chép cá nhân, chưa phải biểu mẫu nhật ký công trình theo quy định của hợp đồng hay cơ quan quản lý.</li></ul></section>';
-      var $ = function (s) { return el.querySelector(s); };
-      $('#n-project').value = d.project;
-
-      function fillForm() {
-        el.querySelectorAll('[data-n]').forEach(function (i) { i.value = form[i.getAttribute('data-n')]; });
-        $('#n-title').textContent = editing ? 'Sửa nhật ký ngày ' + CX.dateVN(form.date) : 'Ghi nhật ký mới';
-        $('#n-cancel').hidden = !editing;
-      }
-      function list() {
-        var es = d.entries.slice().sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
-        $('#n-list').innerHTML = es.length ? es.map(function (e) {
-          return '<article class="entry"><h3>' + esc(CX.dateVN(e.date)) + '</h3><p class="meta">' + esc(e.weather) + (e.workers ? ' · ' + esc(e.workers) + ' nhân công' : '') + '</p>' +
-            (e.work ? '<p><b>Công việc:</b> ' + esc(e.work) + '</p>' : '') + (e.material ? '<p><b>Vật tư:</b> ' + esc(e.material) + '</p>' : '') +
-            (e.issue ? '<p><b>Sự cố, việc cần xử lý:</b> ' + esc(e.issue) + '</p>' : '') +
-            '<div class="actions no-print"><button class="btn sm" data-act="edit" data-id="' + e.id + '">Sửa</button><button class="btn sm danger" data-act="del" data-id="' + e.id + '">Xóa</button></div></article>';
-        }).join('') : '<div class="empty">Chưa có nhật ký nào. Điền biểu mẫu phía trên rồi bấm "Lưu nhật ký".</div>';
-      }
-      fillForm(); list();
-
-      el.addEventListener('input', function (e) {
-        var t = e.target;
-        if (t.hasAttribute('data-n')) form[t.getAttribute('data-n')] = t.value;
-        else if (t.id === 'n-project') { d.project = t.value; CX.store.set('diary', d); }
-      });
-      el.addEventListener('click', function (e) {
-        var b = e.target.closest('[data-act]'); if (!b) return;
-        var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
-        if (act === 'save') {
-          if (!form.date) return CX.toast('Hãy chọn ngày cho nhật ký.');
-          if (!form.work.trim() && !form.material.trim() && !form.issue.trim()) return CX.toast('Hãy ghi ít nhất một mục: công việc, vật tư hoặc sự cố.');
-          if (editing) { var i = d.entries.findIndex(function (x) { return x.id === editing; }); if (i >= 0) d.entries[i] = Object.assign({}, form, { id: editing }); }
-          else d.entries.push(Object.assign({}, form, { id: CX.uid() }));
-          CX.store.set('diary', d); CX.toast('Đã lưu nhật ký ngày ' + CX.dateVN(form.date) + '.');
-          editing = null; form = blank(); fillForm(); list();
-        } else if (act === 'cancel') { editing = null; form = blank(); fillForm(); }
-        else if (act === 'edit') {
-          var en = d.entries.find(function (x) { return x.id === id; }); if (!en) return;
-          editing = id; form = Object.assign({}, en); fillForm(); window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if (act === 'del') {
-          if (!confirm('Xóa nhật ký này?')) return;
-          d.entries = d.entries.filter(function (x) { return x.id !== id; }); CX.store.set('diary', d);
-          if (editing === id) { editing = null; form = blank(); fillForm(); }
-          list();
-        } else if (act === 'print') CX.print();
-        else if (act === 'csv') {
-          var rows = [[tool.name], ['Công trình', d.project], [], ['Ngày', 'Thời tiết', 'Nhân công', 'Công việc', 'Vật tư', 'Sự cố, việc cần xử lý']];
-          d.entries.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }).forEach(function (x) {
-            rows.push([CX.dateVN(x.date), x.weather, x.workers, x.work, x.material, x.issue]);
-          });
-          CX.exportCSV('nhat-ky-' + CX.today() + '.xlsx', rows);
-        }
-      });
     }
   });
 })();

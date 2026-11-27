@@ -50,14 +50,6 @@ t('ốp lát: 4×5 m, gạch 600×600, mạch 2 mm, hao hụt 5%', () => {
 t('ốp lát: diện tích âm được chặn về 0', () => {
   near(F.tiles({ len: 1, wid: 1, extra: 0, cut: 5, tl: 300, tw: 300, joint: 0, waste: 0, perBox: 0 }).area, 0);
 });
-t('sơn: phòng 4×5×3, trừ cửa 6 m², có trần, 2 phòng', () => {
-  const r = F.paint({ len: 4, wid: 5, h: 3, open: 6, ceiling: 'yes', rooms: 2, cov: 10, primerCoats: 1, topCoats: 2, waste: 0, pack: 18 });
-  near(r.walls, (2 * 9 * 3 - 6) * 2); near(r.ceiling, 40); near(r.area, 48 * 2 + 40);
-  near(r.primer, r.area / 10); near(r.top, r.area * 2 / 10); assert.strictEqual(r.topPacks, Math.ceil(r.top / 18));
-});
-t('sơn: không trần thì chỉ tính tường', () => {
-  near(F.paint({ len: 4, wid: 5, h: 3, open: 0, ceiling: 'no', rooms: 1, cov: 10, primerCoats: 0, topCoats: 1, waste: 0, pack: 0 }).area, 54);
-});
 t('quy đổi: chiều dài, diện tích, áp suất, lực', () => {
   near(F.convert(1, 'm', 'cm', 'Chiều dài'), 100); near(F.convert(12, 'inch (in)', 'mm', 'Chiều dài'), 304.8);
   near(F.convert(1, 'ha', 'm²', 'Diện tích'), 10000); near(F.convert(25, 'MPa (N/mm²)', 'kgf/cm²', 'Áp suất / ứng suất'), 254.9291, 1e-3);

@@ -1,4 +1,4 @@
-# Bộ công cụ xây dựng
+# Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán
 
 Hệ thống công cụ web tĩnh cho ngành xây dựng: HTML, CSS và JavaScript thuần, **không cần build, không cần backend**. Mở được ngay trên GitHub Pages, chạy được khi mất mạng (PWA).
 
@@ -6,10 +6,10 @@ Hệ thống công cụ web tĩnh cho ngành xây dựng: HTML, CSS và JavaScri
 
 | Nhóm | Công cụ |
 |---|---|
-| Khối lượng vật liệu | Bê tông (móng, cột, dầm, sàn), cốt thép, gạch xây và vữa, gạch ốp lát, sơn nước |
+| Khối lượng vật liệu | Bê tông (móng, cột, dầm, sàn), cốt thép, gạch xây và vữa, gạch ốp lát |
 | Dự toán | Dự toán sơ bộ (khối lượng × đơn giá tự nhập, dự phòng, VAT), nhận hạng mục từ các công cụ tính |
 | Tra cứu | Quy đổi đơn vị (kể cả MPa, kgf/cm², tf, kN), bảng tra thép tròn Φ6 đến Φ32 |
-| Biểu mẫu và nhật ký | Checklist nghiệm thu và an toàn (6 mẫu), nhật ký công trình |
+| Biểu mẫu | Checklist nghiệm thu và an toàn (6 mẫu) |
 
 Mọi công cụ đều: xuất Excel (.xlsx), in hoặc lưu PDF, hiển thị công thức từng bước, tự lưu dữ liệu nhập trên thiết bị.
 
@@ -56,7 +56,7 @@ sw.js, manifest.webmanifest, icons/   PWA
 1. Nếu có tính toán, thêm hàm thuần vào `js/formulas.js` và viết test trong `tests/formulas.test.js`.
 2. Tạo công cụ trong `js/tools/` bằng `CX.register({ id, name, group, icon, desc, keywords, mount })`. Với công cụ dạng "nhập thông số → ra kết quả", dùng `CX.calc(el, tool, { fields, rows, compute, notes })` để có sẵn form, bảng dòng, kết quả, xuất Excel, in và nút thêm vào dự toán. Xem `js/tools/vat-lieu.js` làm mẫu.
 3. Thêm thẻ `<script>` vào `index.html` và tên file vào danh sách `ASSETS` trong `sw.js`.
-4. Mỗi lần phát hành, đổi `CACHE = 'xdt-v2'` trong `sw.js` thành `xdt-v2`... để người dùng nhận bản mới.
+4. Mỗi lần phát hành, đổi `CACHE = 'xdt-v4'` trong `sw.js` thành `xdt-v5`... để người dùng nhận bản mới.
 
 ## Lưu ý quan trọng
 

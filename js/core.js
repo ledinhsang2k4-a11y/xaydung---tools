@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var PREFIX = 'xdt:v1:';
-  var CX = (window.CX = { tools: [], groups: ['Khối lượng vật liệu', 'Dự toán', 'Tra cứu', 'Biểu mẫu & nhật ký'] });
+  var CX = (window.CX = { tools: [], groups: ['Khối lượng vật liệu', 'Dự toán', 'Tra cứu', 'Biểu mẫu'] });
 
   /* ---------- Lưu trữ cục bộ (có version) ---------- */
   CX.store = {

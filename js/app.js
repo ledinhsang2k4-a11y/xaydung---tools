@@ -32,13 +32,13 @@
 
   /* ---------- Trang chủ ---------- */
   function home() {
-    document.title = 'Bộ công cụ xây dựng';
+    document.title = 'Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán';
     app.innerHTML =
       '<div class="hero"><h1>Tính nhanh ngay tại công trường</h1>' +
-      '<p>Khối lượng vật liệu, dự toán sơ bộ, checklist nghiệm thu và nhật ký công trình. Chạy trên điện thoại, dùng được khi mất mạng, không cần tài khoản.</p></div>' +
-      '<div class="searchbar"><input id="q" type="search" placeholder="Tìm công cụ: bê tông, thép, sơn, nhật ký..." aria-label="Tìm công cụ" autocomplete="off"></div>' +
+      '<p>Khối lượng vật liệu, dự toán sơ bộ, tra cứu và checklist nghiệm thu, an toàn. Chạy trên điện thoại, dùng được khi mất mạng, không cần tài khoản.</p></div>' +
+      '<div class="searchbar"><input id="q" type="search" placeholder="Tìm công cụ: bê tông, thép, gạch, checklist..." aria-label="Tìm công cụ" autocomplete="off"></div>' +
       '<div class="chips" id="chips"></div><div id="list"></div>' +
-      '<div class="notice"><p><b>Dữ liệu nằm trên thiết bị của bạn.</b> Không có máy chủ, nên đổi máy hoặc xóa dữ liệu duyệt web sẽ làm mất nhật ký, dự toán đã nhập.</p>' +
+      '<div class="notice"><p><b>Dữ liệu nằm trên thiết bị của bạn.</b> Không có máy chủ, nên đổi máy hoặc xóa dữ liệu duyệt web sẽ làm mất dự toán và checklist đã nhập.</p>' +
       '<div class="actions"><button class="btn" id="bk">Sao lưu dữ liệu (.json)</button><label class="btn" style="cursor:pointer">Khôi phục từ file<input id="rs" type="file" accept="application/json,.json" hidden></label></div></div>';
 
     var q = document.getElementById('q'); q.value = homeState.q;
@@ -79,7 +79,7 @@
   function toolPage(id) {
     var tool = CX.tools.find(function (t) { return t.id === id; });
     if (!tool) { notFound(); return; }
-    document.title = tool.name + ' | Bộ công cụ xây dựng';
+    document.title = tool.name + ' | Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán';
     app.innerHTML =
       '<a class="crumb" href="#/">← Tất cả công cụ</a>' +
       '<div class="print-only print-head"><h1>' + esc(tool.name) + '</h1><div>Ngày in: ' + esc(CX.dateVN(CX.today())) + '</div></div>' +
@@ -91,7 +91,7 @@
 
   /* ---------- Giới thiệu ---------- */
   function about() {
-    document.title = 'Giới thiệu | Bộ công cụ xây dựng';
+    document.title = 'Giới thiệu | Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán';
     app.innerHTML =
       '<a class="crumb" href="#/">← Tất cả công cụ</a><div class="tool-head"><h1>Giới thiệu và miễn trừ trách nhiệm</h1></div>' +
       '<section class="card"><h2>Bộ công cụ này là gì?</h2><p>Tập hợp công cụ tính nhanh cho người làm xây dựng. Toàn bộ chạy trong trình duyệt, không gửi dữ liệu của bạn đi đâu. Sau lần mở đầu tiên, bạn có thể dùng khi không có mạng và thêm vào màn hình chính điện thoại.</p></section>' +
@@ -100,14 +100,13 @@
       '<li>Thép tròn: khối lượng 1 m = d² × 0,00617 kg (d tính bằng mm).</li>' +
       '<li>Gạch xây: số viên/m² = 1 ÷ ((cạnh hướng ra + mạch) × (cao + mạch)); vữa = thể tích tường − thể tích gạch.</li>' +
       '<li>Ốp lát: số viên = diện tích ÷ diện tích một viên kể cả mạch, nhân hao hụt, làm tròn lên.</li>' +
-      '<li>Sơn: lít = diện tích × số lớp ÷ độ phủ, nhân hao hụt.</li>' +
       '<li>Quy đổi: dùng hệ số chuẩn quốc tế (ví dụ 1 kgf = 9,80665 N, 1 inch = 25,4 mm).</li></ul></section>' +
       '<section class="card"><h2>Miễn trừ trách nhiệm</h2><p>Kết quả chỉ để ước tính nhanh. Định mức vật liệu trong các mác bê tông, tỷ lệ hao hụt và số liệu gạch là giá trị tham khảo gần đúng, cần đối chiếu với định mức, tiêu chuẩn, hồ sơ thiết kế và báo giá thực tế. Các công cụ không tính kết cấu và không thay thế kỹ sư có chuyên môn. Người dùng tự chịu trách nhiệm khi áp dụng kết quả.</p></section>' +
-      '<section class="card"><h2>Dữ liệu của bạn</h2><p>Dữ liệu nhập (dự toán, nhật ký, checklist, thông số đã nhập) chỉ lưu trong trình duyệt của thiết bị này. Hãy dùng nút "Sao lưu dữ liệu" ở trang chủ để giữ bản dự phòng.</p></section>';
+      '<section class="card"><h2>Dữ liệu của bạn</h2><p>Dữ liệu nhập (dự toán, checklist, thông số đã nhập) chỉ lưu trong trình duyệt của thiết bị này. Hãy dùng nút "Sao lưu dữ liệu" ở trang chủ để giữ bản dự phòng.</p></section>';
   }
 
   function notFound() {
-    document.title = 'Không tìm thấy | Bộ công cụ xây dựng';
+    document.title = 'Không tìm thấy | Bộ công cụ hỗ trợ tính toán khối lượng vật liệu và dự toán';
     app.innerHTML = '<a class="crumb" href="#/">← Tất cả công cụ</a><div class="empty" style="margin-top:20px">Không tìm thấy trang này. <a href="#/">Về trang chủ</a> để chọn công cụ.</div>';
   }
 

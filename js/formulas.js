@@ -79,23 +79,6 @@
     return { area: area, unitArea: unit, countNet: net, count: count, boxes: perBox ? Math.ceil(count / perBox - 1e-9) : 0 };
   }
 
-  /* ---- Sơn ---- */
-  function paint(p) {
-    var n = pos(p.rooms) || 1;
-    var walls = Math.max(0, 2 * (pos(p.len) + pos(p.wid)) * pos(p.h) - pos(p.open));
-    var ceil = p.ceiling === 'yes' ? pos(p.len) * pos(p.wid) : 0;
-    var area = (walls + ceil) * n;
-    var cov = pos(p.cov);
-    var primer = cov ? area * pos(p.primerCoats) / cov : 0;
-    var top = cov ? area * pos(p.topCoats) / cov : 0;
-    primer = withWaste(primer, p.waste); top = withWaste(top, p.waste);
-    var pack = pos(p.pack);
-    return {
-      walls: walls * n, ceiling: ceil * n, area: area, primer: primer, top: top,
-      primerPacks: pack ? Math.ceil(primer / pack - 1e-9) : 0, topPacks: pack ? Math.ceil(top / pack - 1e-9) : 0
-    };
-  }
-
   /* ---- Quy đổi đơn vị ---- */
   var UNITS = {
     'Chiều dài': { 'mm': 0.001, 'cm': 0.01, 'm': 1, 'km': 1000, 'inch (in)': 0.0254, 'feet (ft)': 0.3048, 'yard (yd)': 0.9144 },
@@ -131,7 +114,7 @@
 
   return {
     round: round, concrete: concrete, concreteMaterials: concreteMaterials, rebarKgPerM: rebarKgPerM, rebar: rebar,
-    brick: brick, tiles: tiles, paint: paint, UNITS: UNITS, convert: convert,
+    brick: brick, tiles: tiles, UNITS: UNITS, convert: convert,
     REBAR_DIAMETERS: REBAR_DIAMETERS, rebarTable: rebarTable, estimate: estimate
   };
 });
