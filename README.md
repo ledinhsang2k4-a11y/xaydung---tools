@@ -56,7 +56,7 @@ sw.js, manifest.webmanifest, icons/   PWA
 1. Nếu có tính toán, thêm hàm thuần vào `js/formulas.js` và viết test trong `tests/formulas.test.js`.
 2. Tạo công cụ trong `js/tools/` bằng `CX.register({ id, name, group, icon, desc, keywords, mount })`. Với công cụ dạng "nhập thông số → ra kết quả", dùng `CX.calc(el, tool, { fields, rows, compute, notes })` để có sẵn form, bảng dòng, kết quả, xuất Excel, in và nút thêm vào dự toán. Xem `js/tools/vat-lieu.js` làm mẫu.
 3. Thêm thẻ `<script>` vào `index.html` và tên file vào danh sách `ASSETS` trong `sw.js`.
-4. Mỗi lần phát hành, đổi `CACHE = 'xdt-v4'` trong `sw.js` thành `xdt-v5`... để người dùng nhận bản mới.
+4. Mỗi lần phát hành, đổi `CACHE = 'xdt-v5'` trong `sw.js` thành `xdt-v6`... để người dùng nhận bản mới.
 
 ## Lưu ý quan trọng
 
