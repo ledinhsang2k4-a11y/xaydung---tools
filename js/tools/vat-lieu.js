@@ -129,7 +129,7 @@
             warn: warn, results: res,
             table: {
               head: ['Vị trí', 'Φ (mm)', 'Dài/thanh (m)', 'Số thanh', 'kg/m', 'Khối lượng (kg)'],
-              rows: rows.map(function (x, i) { return [x.ten, x.d, x.len, x.n, F.round(r.perRow[i].kgm, 3), F.round(r.perRow[i].kg, 2)]; })
+              rows: rows.map(function (x, i) { return [x.ten, Number(x.d), x.len, x.n, F.round(r.perRow[i].kgm, 3), F.round(r.perRow[i].kg, 2)]; })
             },
             steps: [
               'Khối lượng 1 m = d² × 0,00617 (ví dụ Φ16: 16² × 0,00617 = ' + nf(F.rebarKgPerM(16), 3) + ' kg/m).',

@@ -1,8 +1,8 @@
 /* Service worker: lưu sẵn toàn bộ trang để dùng khi mất mạng. Đổi CACHE khi phát hành bản mới. */
-var CACHE = 'xdt-v1';
+var CACHE = 'xdt-v2';
 var ASSETS = [
   './', 'index.html', 'manifest.webmanifest', 'icons/icon.svg', 'css/style.css',
-  'js/formulas.js', 'js/core.js', 'js/app.js',
+  'js/formulas.js', 'js/xlsx.js', 'js/core.js', 'js/app.js',
   'js/tools/vat-lieu.js', 'js/tools/hoan-thien.js', 'js/tools/tra-cuu.js', 'js/tools/du-toan.js', 'js/tools/bieu-mau.js'
 ];
 

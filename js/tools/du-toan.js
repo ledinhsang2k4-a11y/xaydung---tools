@@ -19,7 +19,7 @@
         '<label class="fld"><span>Dự phòng <em>(%)</em></span><input data-g="reserve" inputmode="decimal" value="' + esc(d.reserve) + '"></label>' +
         '<label class="fld"><span>VAT <em>(%)</em></span><input data-g="vat" inputmode="decimal" value="' + esc(d.vat) + '"></label></div>' +
         '<div id="e-sum"></div>' +
-        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.csv)</button><button class="btn" data-act="print">In / lưu PDF</button></div></section>' +
+        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.xlsx)</button><button class="btn" data-act="print">In / lưu PDF</button></div></section>' +
         '<section class="card"><h2>Giả định và lưu ý</h2><ul class="note-list">' +
         '<li>Dự phòng tính trên tổng chi phí hạng mục; VAT tính trên (tổng + dự phòng). Hãy chỉnh theo cách tính của hợp đồng hoặc quy định hiện hành.</li>' +
         '<li>Các nút "+ ... vào dự toán" ở công cụ khác sẽ cộng dồn khối lượng vào dòng trùng tên và đơn vị. Đơn giá giữ nguyên.</li>' +
@@ -78,7 +78,7 @@
           rows.push([], ['', 'Cộng hạng mục', '', '', '', Math.round(r.sub)], ['', 'Dự phòng ' + CX.num(d.reserve) + '%', '', '', '', Math.round(r.reserve)],
             ['', 'VAT ' + CX.num(d.vat) + '%', '', '', '', Math.round(r.vat)], ['', 'Tổng dự toán', '', '', '', Math.round(r.total)],
             [], ['Dự toán sơ bộ chỉ mang tính tham khảo.']);
-          CX.exportCSV('du-toan-' + CX.today() + '.csv', rows);
+          CX.exportCSV('du-toan-' + CX.today() + '.xlsx', rows);
         }
       });
     }

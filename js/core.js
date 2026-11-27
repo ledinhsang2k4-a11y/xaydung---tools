@@ -72,23 +72,17 @@
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
   };
-  // CSV mở được trực tiếp bằng Excel (BOM UTF-8, phân cách ";", số dùng dấu phẩy thập phân kiểu Việt Nam)
-  CX.csv = function (rows) {
-    var cell = function (v) {
-      var s;
-      if (typeof v === 'number') s = String(Math.round(v * 1e6) / 1e6).replace('.', ',');
-      else {
-        s = String(v == null ? '' : v);
-        if (/^[=+\-@]/.test(s)) s = "'" + s; // chống chèn công thức
-      }
-      return /[";\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
-    };
-    return '﻿sep=;\r\n' + rows.map(function (r) { return r.map(cell).join(';'); }).join('\r\n');
+  // Xuất file Excel thật (.xlsx): chữ tiếng Việt và số luôn đúng, không phụ thuộc cài đặt vùng của Excel
+  CX.exportXLSX = function (name, rows) {
+    name = String(name).replace(/\.csv$/i, '').replace(/\.xlsx$/i, '') + '.xlsx';
+    try {
+      CX.download(name, Xlsx.build(rows), Xlsx.MIME);
+      CX.toast('Đã xuất file ' + name);
+    } catch (e) {
+      CX.toast('Không xuất được file Excel: ' + e.message);
+    }
   };
-  CX.exportCSV = function (name, rows) {
-    CX.download(name, CX.csv(rows), 'text/csv;charset=utf-8');
-    CX.toast('Đã xuất file ' + name);
-  };
+  CX.exportCSV = CX.exportXLSX; // tên cũ, giữ để các công cụ gọi vào vẫn chạy
   CX.print = function () { window.print(); };
 
   /* ---------- Đăng ký công cụ ---------- */
@@ -161,7 +155,7 @@
         }).join('') + '</tbody></table></div>';
     }
     h += '<div class="actions no-print">' +
-      '<button class="btn primary" data-act="csv">Xuất Excel (.csv)</button>' +
+      '<button class="btn primary" data-act="csv">Xuất Excel (.xlsx)</button>' +
       '<button class="btn" data-act="print">In / lưu PDF</button>';
     (out.est || []).forEach(function (g, i) {
       h += '<button class="btn" data-act="est" data-i="' + i + '">+ ' + CX.esc(g.label) + '</button>';
@@ -188,7 +182,7 @@
         rows.push(['Kết quả']);
         out.results.forEach(function (r) { rows.push([r.label, r.value, r.unit || '']); });
         rows.push([], ['Kết quả chỉ mang tính tham khảo, cần được kỹ sư có chuyên môn kiểm tra trước khi áp dụng.']);
-        return CX.exportCSV(tool.id + '-' + CX.today() + '.csv', rows);
+        return CX.exportCSV(tool.id + '-' + CX.today() + '.xlsx', rows);
       }
       if (act === 'est') {
         var g = out.est[+b.getAttribute('data-i')];

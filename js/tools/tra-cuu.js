@@ -63,7 +63,7 @@
       el.innerHTML =
         '<section class="card"><h2>Chiều dài cây thép</h2><div class="grid"><label class="fld"><span>Chiều dài cây <em>(m)</em></span><input id="b-stock" inputmode="decimal" value="' + esc(st.stock) + '"></label></div></section>' +
         '<section class="card"><h2>Bảng tra</h2><div class="tbl"><table class="data"><thead><tr><th>Đường kính</th><th>kg/m</th><th>kg/cây</th><th>Tiết diện (mm²)</th><th>Chu vi (mm)</th></tr></thead><tbody id="b-body"></tbody></table></div>' +
-        '<div class="actions no-print"><button class="btn primary" id="b-csv">Xuất Excel (.csv)</button><button class="btn" id="b-print">In / lưu PDF</button></div></section>' +
+        '<div class="actions no-print"><button class="btn primary" id="b-csv">Xuất Excel (.xlsx)</button><button class="btn" id="b-print">In / lưu PDF</button></div></section>' +
         '<section class="card"><h2>Giả định và lưu ý</h2><ul class="note-list"><li>Khối lượng 1 m = d² × 0,00617 kg (d tính bằng mm).</li><li>Tiết diện = π × d² ÷ 4; chu vi = π × d.</li><li>Khối lượng thực tế của thép thương mại có dung sai theo tiêu chuẩn sản phẩm, nên có thể lệch nhẹ so với bảng này.</li></ul></section>';
       var rows;
       function draw() {
@@ -79,7 +79,7 @@
       el.querySelector('#b-csv').addEventListener('click', function () {
         var data = [[tool.name], ['Chiều dài cây (m)', CX.num(st.stock)], [], ['Đường kính (mm)', 'kg/m', 'kg/cây', 'Tiết diện (mm²)', 'Chu vi (mm)']];
         rows.forEach(function (r) { data.push([r.d, F.round(r.kgm, 3), F.round(r.kgBar, 2), F.round(r.area, 1), F.round(r.perimeter, 1)]); });
-        CX.exportCSV('bang-thep-' + CX.today() + '.csv', data);
+        CX.exportCSV('bang-thep-' + CX.today() + '.xlsx', data);
       });
     }
   });

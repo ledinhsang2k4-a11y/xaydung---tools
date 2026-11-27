@@ -91,7 +91,7 @@
         '<section class="card"><h2 id="c-title"></h2><div class="progress" aria-hidden="true"><i id="c-bar"></i></div><p class="muted" id="c-count" style="margin:0 0 6px"></p><div id="c-list"></div>' +
         '<div class="actions no-print"><input type="text" id="c-new" placeholder="Thêm mục kiểm tra riêng" style="flex:1;min-width:200px"><button class="btn" data-act="addc">+ Thêm mục</button></div>' +
         '<label class="fld" style="margin-top:14px"><span>Ghi chú, tồn tại cần khắc phục</span><textarea id="c-note"></textarea></label>' +
-        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.csv)</button><button class="btn" data-act="print">In / lưu PDF</button><button class="btn" data-act="clear">Bỏ chọn tất cả</button></div></section>' +
+        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.xlsx)</button><button class="btn" data-act="print">In / lưu PDF</button><button class="btn" data-act="clear">Bỏ chọn tất cả</button></div></section>' +
         '<section class="card"><h2>Lưu ý</h2><ul class="note-list"><li>Đây là danh mục kiểm tra thông dụng để nhắc việc, không thay thế quy trình nghiệm thu, hồ sơ và biện pháp an toàn theo thiết kế, hợp đồng và quy định hiện hành của công trình.</li><li>Bạn có thể thêm các mục riêng của công trình ngay trong phiếu.</li></ul></section>';
 
       var $ = function (s) { return el.querySelector(s); };
@@ -141,7 +141,7 @@
           var rows = [[tpl.name], ['Công trình', meta.project], ['Hạng mục / vị trí', meta.place], ['Người kiểm tra', meta.inspector], ['Ngày', CX.dateVN(meta.date)], [], ['STT', 'Nội dung kiểm tra', 'Kết quả']];
           allItems().forEach(function (txt, i) { rows.push([i + 1, txt, data.checks[i] ? 'Đạt' : 'Chưa đạt / chưa kiểm tra']); });
           rows.push([], ['Ghi chú', data.note || '']);
-          CX.exportCSV('checklist-' + tpl.id + '-' + meta.date + '.csv', rows);
+          CX.exportCSV('checklist-' + tpl.id + '-' + meta.date + '.xlsx', rows);
         }
       });
       $('#c-new').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); el.querySelector('[data-act=addc]').click(); } });
@@ -171,7 +171,7 @@
         '<div class="actions"><button class="btn primary" data-act="save">Lưu nhật ký</button><button class="btn" data-act="cancel" id="n-cancel" hidden>Hủy sửa</button></div></section>' +
         '<section class="card"><h2>Các ngày đã ghi</h2><label class="fld no-print" style="max-width:420px;margin-bottom:12px"><span>Tên công trình (hiện trên bản in và file xuất)</span><input type="text" id="n-project"></label>' +
         '<div id="n-list"></div>' +
-        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.csv)</button><button class="btn" data-act="print">In / lưu PDF</button></div></section>' +
+        '<div class="actions no-print"><button class="btn primary" data-act="csv">Xuất Excel (.xlsx)</button><button class="btn" data-act="print">In / lưu PDF</button></div></section>' +
         '<section class="card no-print"><h2>Lưu ý</h2><ul class="note-list"><li>Nhật ký được lưu trong trình duyệt của thiết bị này. Đổi máy hoặc xóa dữ liệu duyệt web sẽ mất, hãy xuất file hoặc dùng nút "Sao lưu" ở trang chủ định kỳ.</li><li>Đây là sổ ghi chép cá nhân, chưa phải biểu mẫu nhật ký công trình theo quy định của hợp đồng hay cơ quan quản lý.</li></ul></section>';
       var $ = function (s) { return el.querySelector(s); };
       $('#n-project').value = d.project;
@@ -222,7 +222,7 @@
           d.entries.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }).forEach(function (x) {
             rows.push([CX.dateVN(x.date), x.weather, x.workers, x.work, x.material, x.issue]);
           });
-          CX.exportCSV('nhat-ky-' + CX.today() + '.csv', rows);
+          CX.exportCSV('nhat-ky-' + CX.today() + '.xlsx', rows);
         }
       });
     }
